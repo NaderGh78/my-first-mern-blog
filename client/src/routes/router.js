@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import {
     Admin,
     CreatePost,
@@ -23,7 +23,7 @@ import {
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,

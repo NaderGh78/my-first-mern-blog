@@ -133,7 +133,7 @@ const AdminCustomersTable = () => {
                         :
                         <>
                             <tr className='text-center'>
-                                <td colSpan="4"><h2>No Data Yet!</h2></td>
+                                <td colSpan="5"><h2>No Data Yet!</h2></td>
                             </tr>
                         </>
                     }
