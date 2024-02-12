@@ -25,7 +25,7 @@ const UserProfile = () => {
 
     const { profile, show, loading, isProfileDeleted } = useSelector((state) => state.profile);
 
-    const { post, posts } = useSelector((state) => state.post);
+    const { post, posts, isPostDelete } = useSelector((state) => state.post);
 
     const { id } = useParams();
 
@@ -36,12 +36,20 @@ const UserProfile = () => {
     // get user profile based on id 
     useEffect(() => {
         dispatch(getUserProfile(id));
-        dispatch(getAllPostsForAdmin());
     }, [id]);
     /*
     put id in order to switch the id of user profile,when the user login want to see the other profile users,
     cos without id will nooooooooooot swith 
     */
+
+    /*===========================================*/
+    /*
+    get all posts for user based on isPostDelete state , 
+    we use isPostDelete in case the user need to remove some of his posts
+    */
+    useEffect(() => {
+        dispatch(getAllPostsForAdmin());
+    }, [isPostDelete]);
 
     /*===========================================*/
 

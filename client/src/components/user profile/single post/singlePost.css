@@ -127,3 +127,28 @@
     margin-left: 10px;
     cursor: pointer;
 }
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+
+    .single-post {
+        width: 95%;
+        height: 55vh;
+        margin: auto;
+    }
+
+    .single-post .bottom h5 {
+        font-size: 3.7vw;
+    }
+
+    .single-post .bottom h5 a,
+    .single-post .bottom h5+span,
+    .single-post .bottom .bottom-body .some-info,
+    .single-post .bottom .bottom-body .some-info a {
+        font-size: 3vw;
+    }
+
+}

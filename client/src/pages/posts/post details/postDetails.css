@@ -138,3 +138,28 @@ textarea.mytextarea:focus {
 }
 
 /* end comment section */
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+
+    .post-details .post-details-content {
+        width: 90%;
+    }
+
+    .post-details .post-details-content img.post-master-img {
+        height: 300px;
+    }
+
+    .post-details .post-details-content .comments-content form {
+        width: 100% !important;
+    }
+
+    .post-details .post-details-content h2 {
+        margin-top: 10px;
+        font-size: 7vw;
+    }
+
+}

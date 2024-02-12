@@ -87,12 +87,13 @@ textarea.my-input::placeholder {
 
 /* style register and login section */
 .my-alert {
-  visibility: hidden;
+  /* visibility: hidden;
   height: 45px;
   padding: 0 !important;
   margin-bottom: 0 !important;
   line-height: 45px;
-  text-align: center;
+  text-align: center; */
+  display: none;
 }
 
 .register {
@@ -267,4 +268,54 @@ form.my-form .customFile-box span {
 
 .custom-modal .modal.fade .modal-dialog {
   transition: transform .9s ease !important;
+}
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+
+  .register .register-style {
+    width: 100%;
+    flex-direction: column-reverse !important;
+  }
+
+  .register .register-style .left {
+    padding: 0;
+  }
+
+  .register .register-style .right {
+    gap: 5px;
+    padding: 20px 0;
+  }
+
+  form.my-form {
+    margin: 15px auto;
+  }
+
+  .react-confirm-alert-body {
+    width: 95% !important;
+    padding: 12px !important;
+    margin: auto;
+    font-size: 4vw;
+  }
+
+  form.my-form .customFile-box span {
+    font-size: 4vw;
+  }
+
+  .react-confirm-alert-button-group>button {
+    font-size: 3vw !important;
+  }
+
+  .Toastify__toast-container {
+    width: 80vw !important;
+    left: 20vw !important;
+  }
+
+  .Toastify__toast-body>div:last-child {
+    font-size: 3.5vw !important;
+  }
+
 }

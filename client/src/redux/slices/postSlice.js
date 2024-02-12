@@ -12,7 +12,8 @@ const postSlice = createSlice({
         postsCount: null,
         postsCate: [],
         loading: false,
-        isPostCreated: false
+        isPostCreated: false,
+        isPostDelete: false
     },
     reducers: {
 
@@ -26,7 +27,17 @@ const postSlice = createSlice({
         },
 
         setDeletePost(state, action) {
-            state.post = action.payload;
+            state.posts = state.posts.filter(p => p._id !== action.payload);
+        },
+
+        // in case the post already deleted
+        setIsPostDelete(state) {
+            state.isPostDelete = true;
+        },
+
+        // back the [isPostDelete] to initial value
+        ClearIsPostDelete(state) {
+            state.isPostDelete = false;
         },
 
         setPostsCount(state, action) {
@@ -51,16 +62,20 @@ const postSlice = createSlice({
         },
 
         updateCommentPost(state, action) {
+
             state.post.comments = state.post.comments.map(commment =>
                 commment._id === action.payload._id ? action.payload : commment
             )
         },
 
         deleteCommentFromPost(state, action) {
+
             const comment = state.post.comments.find(c => c._id === action.payload);
+
             const commentIndex = state.post.comments.indexOf(comment);
 
             state.post.comments.splice(commentIndex, 1);
+
         },
 
         clearIsPostCreated(state) {

@@ -86,3 +86,51 @@
     text-align: center;
     color: #888;
 }
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+
+    .user-profile-content .user-profile-posts .all-posts {
+        gap: 15px !important;
+    }
+
+    .user-profile .user-profile-img-box .img-wrapper {
+        width: 17vw;
+        height: 17vw;
+        margin: 0 auto 10px;
+    }
+
+    .user-profile .user-profile-img-box .img-wrapper+h3 {
+        font-size: 4vw;
+    }
+
+    .user-profile .user-profile-img-box .img-wrapper+h3+p {
+        font-size: 3.6vw;
+    }
+
+    .user-profile .user-profile-img-box .img-wrapper+h3+p+div {
+        font-size: 3.2vw;
+    }
+
+    .user-profile .user-profile-img-box .img-wrapper+h3+p+div span {
+        font-size: inherit;
+    }
+
+    .user-profile button.btn-update {
+        padding: 4px 5px;
+        font-size: 2.9vw;
+    }
+
+    .user-profile button.btn-update svg {
+        font-size: 4vw;
+    }
+
+    .user-profile .user-profile-img-box button.delete-acc {
+        right: 5px;
+        font-size: 3vw;
+    }
+
+}

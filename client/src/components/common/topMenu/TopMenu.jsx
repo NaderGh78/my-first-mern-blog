@@ -100,12 +100,18 @@ const TopMenu = () => {
                     ?
                     <FaRegMoon
                       className='toggle-icon'
-                      onClick={() => dispatch(toggleTheme())}
+                      onClick={() => {
+                        dispatch(toggleTheme())
+                        setExpanded(false)
+                      }}
                     />
                     :
                     <LiaSun
                       className='toggle-icon'
-                      onClick={() => dispatch(toggleTheme())}
+                      onClick={() => {
+                        dispatch(toggleTheme())
+                        setExpanded(false)
+                      }}
                     />
                 }
                 <Nav>
@@ -155,12 +161,18 @@ const TopMenu = () => {
                     ?
                     <FaRegMoon
                       className='toggle-icon'
-                      onClick={() => dispatch(toggleTheme())}
+                      onClick={() => {
+                        dispatch(toggleTheme())
+                        setExpanded(false)
+                      }}
                     />
                     :
                     <LiaSun
                       className='toggle-icon'
-                      onClick={() => dispatch(toggleTheme())}
+                      onClick={() => {
+                        dispatch(toggleTheme())
+                        setExpanded(false)
+                      }}
                     />
                 }
                 <Nav>

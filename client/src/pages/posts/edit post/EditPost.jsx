@@ -83,7 +83,7 @@ const EditPost = () => {
         <div className='edit-post'>
             <div className="edit-post-box">
                 <form className="my-form" onSubmit={editPostHandler} noValidate>
-                    <h1 className="h2 text-center mb-3 text-capitalize">Edit Post</h1>
+                    <h1 className="h2 text-center mb-3 text-capitalize" style={{ color: "var(--dark)" }}>Edit Post</h1>
                     <div className="form-group">
                         <label htmlFor="editPostTitle">Post Title</label>
                         <input

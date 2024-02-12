@@ -21,7 +21,7 @@ const Home = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { post, posts, postsCount, loading } = useSelector((state) => state.post);
+  const { post, posts, postsCount, loading, isPostDelete } = useSelector((state) => state.post);
 
   const { profile } = useSelector((state) => state.profile);
 
@@ -34,11 +34,11 @@ const Home = () => {
 
   /*===========================================*/
 
-  // get all post based on currentPage
+  // get all post based on currentPage and if the post delete state
   useEffect(() => {
     dispatch(getAllPosts(currentPage));
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, isPostDelete]);
 
   /*===========================================*/
 
@@ -58,7 +58,7 @@ const Home = () => {
   /*===========================================*/
 
   // show confirm msg,when need to delete some post
-  const handleDelete = async (id) => {
+  const handlePostDelete = async (id) => {
     confirmAlert({
       message: "Are you sure you want to delete this post?",
       buttons: [{
@@ -88,7 +88,7 @@ const Home = () => {
                       key={post._id}
                       userInLocalStorage={user}
                       profile={profile}
-                      handleDelete={handleDelete}
+                      onPostDelete={handlePostDelete}
                     />
                   ))
                   :

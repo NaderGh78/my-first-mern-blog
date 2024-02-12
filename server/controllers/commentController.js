@@ -129,7 +129,12 @@ const updateCommentCtrl = asynHandler(
             }
         }, { new: true });
 
-        res.status(200).json(updatedComment);
+        if (comment._id) {
+            const result = await CommentModel.findById({ _id: comment._id }).populate("user", ["-password"]);
+            // 4. send response to client
+            res.status(200).json(result);
+        }
+
     }
 );
 

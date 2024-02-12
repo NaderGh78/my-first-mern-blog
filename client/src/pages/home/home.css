@@ -35,3 +35,20 @@
     background-color: aqua;
     color: #444;
 }
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+
+    .home .home-content .single-posts-box {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .home .home-content {
+        flex-direction: column;
+    }
+
+}

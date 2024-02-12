@@ -220,6 +220,12 @@ export function deletePost(postId) {
 
             dispatch(postActions.setDeletePost(data.postId));
 
+            // when deleted post succefully
+            dispatch(postActions.setIsPostDelete());
+
+            // back the isPostDelete to initial value after 2 milsecond
+            setTimeout(() => dispatch(postActions.ClearIsPostDelete()), 2);
+
             // show success toast in case deleted post added succefully
             toast.success(data.message, {
                 position: toast.POSITION.TOP_RIGHT
