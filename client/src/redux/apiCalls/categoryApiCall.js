@@ -86,6 +86,9 @@ export function deleteCategory(catId) {
 
       dispatch(categoryActions.setDeleteCategory(data));
 
+      // show success toast when category deleted succesfully
+      toast.success("category deleted successfully");
+
     } catch (error) {
 
       console.log(error.response.data.message);

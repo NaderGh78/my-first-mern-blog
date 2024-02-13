@@ -47,7 +47,7 @@ const TopMenu = () => {
       <Navbar expand="lg" className="bg-body-tertiary fixed-top" expanded={expanded}>
         <Container fluid>
           <Navbar.Brand as={Link} to={"/"}>
-            <h3 style={{ color: "var(--dark)" }}>my <span>blog</span></h3>
+            <h3 style={{ color: "var(--dark)" }} onClick={() => setExpanded(false)}>my <span>blog</span></h3>
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />

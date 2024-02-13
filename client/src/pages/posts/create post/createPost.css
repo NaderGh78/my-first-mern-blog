@@ -1,5 +1,5 @@
 .create-post {
-    margin-top: 150px;
+    margin-top: 150px; 
 }
 
 .create-post .create-post-box {
@@ -21,4 +21,15 @@
 
 .create-post .create-post-box label svg {
     color: #000;
+}
+
+/*====================================*/
+/*===========Responsive===============*/
+/*====================================*/
+
+@media only screen and (max-width:425px) {
+    .create-post .create-post-box {
+        width: 90%;
+        margin: 100px auto 0;
+    }
 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostsBasedOnCategory } from "../../redux/apiCalls/postApiCall";
 import { SinglePost } from "../../allPagesPaths";
+import Spinner from "../../components/common/spinner/Spinner";
 
 /*===========================================*/
 /*===========================================*/
@@ -13,7 +14,7 @@ const CategoriesDetails = () => {
 
   const dispatch = useDispatch();
 
-  const { postsCate } = useSelector((state) => state.post);
+  const { postsCate, loading } = useSelector((state) => state.post);
 
   const { category } = useParams();
 
@@ -25,6 +26,7 @@ const CategoriesDetails = () => {
 
   /*===========================================*/
 
+  if (loading) return <Spinner />;
   return (
     <div className="categories-details">
       <div className="container-fluid">

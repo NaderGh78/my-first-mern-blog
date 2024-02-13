@@ -76,6 +76,7 @@ const Home = () => {
   return (
     <>
       <div className="home" style={{ marginTop: "110px" }}>
+        <ToastContainer autoClose={6000} />
         <div className="container-fluid">
           <div className="home-content d-flex  gap-2 flex-wrap">
             <div className="single-posts-box">
@@ -99,13 +100,16 @@ const Home = () => {
             </div>
             <CategoriesSideBar categories={categories} />
           </div>
-          <Pagination
-            pages={pages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {
+            posts.length > 0 &&
+            <Pagination
+              pages={pages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          } 
         </div>
-        <ToastContainer autoClose={6000} />
+
       </div>
     </>
   )

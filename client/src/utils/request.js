@@ -4,8 +4,8 @@ import axios from "axios";
 /*===========================================*/
 /*===========================================*/
 /*===========================================*/
-// https://mern-blog-w1a9.onrender.com/
-//  baseURL: "http://localhost:3001"
+// http://localhost:3001/
+// https://mern-blog-w1a9.onrender.com
 const request = axios.create({
     baseURL: "https://mern-blog-w1a9.onrender.com"
 });

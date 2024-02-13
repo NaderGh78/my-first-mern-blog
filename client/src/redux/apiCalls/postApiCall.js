@@ -66,10 +66,14 @@ export function fetchPostsBasedOnCategory(category) {
 
         try {
 
+            dispatch(postActions.setLoading());
+
             // get all posts based on [category provided]
             const { data } = await request.get(`/api/post?category=${category}`);
 
             dispatch(postActions.setPostsCate(data));
+
+            dispatch(postActions.clearLoading());
 
         } catch (error) {
 
@@ -132,9 +136,10 @@ export function createPost(newPost) {
                 });
 
             // remove the loader
-            dispatch(postActions.clearLoading());
 
             dispatch(postActions.setPosts(data));
+
+            dispatch(postActions.clearLoading());
 
             // show success toast in case new post added succefully
             toast.success(data.message, {
@@ -143,9 +148,9 @@ export function createPost(newPost) {
 
         } catch (error) {
 
-            toast.error(error?.response?.data?.message);
-
             dispatch(postActions.clearLoading());
+
+            toast.error(error?.response?.data?.message);
 
         }
 
@@ -161,6 +166,8 @@ export function updatePost(editPost, postId) {
 
         try {
 
+
+
             /*
             update a new post based on 
             [post content + token for logged user or admin + formdata for upload post img]
@@ -174,13 +181,13 @@ export function updatePost(editPost, postId) {
                 },
 
             );
-
+            dispatch(postActions.setLoading());
             dispatch(postActions.setPost(data));
 
-            dispatch(postActions.setLoading());
+            dispatch(postActions.clearLoading());
 
             // remove the loader after 2s,when post update succefully
-            setTimeout(() => dispatch(postActions.clearLoading()), 2000); // 2s
+            // setTimeout(() => dispatch(postActions.clearLoading()), 2000); // 2s
 
             //show success toast in case update post succefully
             toast.success("Post Updated Successfully,Please Go Home", {
@@ -188,7 +195,7 @@ export function updatePost(editPost, postId) {
             });
 
         } catch (error) {
-
+            dispatch(postActions.clearLoading());
             toast.error(error.response.data.message);
 
         }
@@ -218,6 +225,11 @@ export function deletePost(postId) {
 
             );
 
+            // show success toast in case deleted post added succefully
+            toast.success("hello", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
             dispatch(postActions.setDeletePost(data.postId));
 
             // when deleted post succefully
@@ -226,10 +238,7 @@ export function deletePost(postId) {
             // back the isPostDelete to initial value after 2 milsecond
             setTimeout(() => dispatch(postActions.ClearIsPostDelete()), 2);
 
-            // show success toast in case deleted post added succefully
-            toast.success(data.message, {
-                position: toast.POSITION.TOP_RIGHT
-            });
+            console.log(data)
 
         } catch (error) {
             console.log(error)
