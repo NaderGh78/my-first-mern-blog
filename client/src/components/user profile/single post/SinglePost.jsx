@@ -14,10 +14,13 @@ const SinglePost = ({ post, userInLocalStorage, profileUsername, profileId, onPo
     // if there is a logged user go to it profile,otherwise go to the user that create the post
     const profileLink = profileId ? `/profile/${profileId}` : `/profile/${post?.user?._id}`;
 
+    //const PF = "https://mern-blog-njw7.onrender.com/uploads/";
+
     return (
         <div className="single-post">
             <div className="top">
                 {post?.postImage && <img src={process.env.PUBLIC_URL + `/uploads/${post?.postImage}`} alt="post image" />}
+                {/* {post?.postImage && <img src={PF+post?.postImage} alt="post image" />} */}
             </div>
             <div className="bottom">
                 <h5 className="text-capitalize mb-0">
