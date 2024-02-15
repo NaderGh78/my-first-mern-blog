@@ -13,6 +13,9 @@ export function registerUser(user) {
 
         try {
 
+            // run the loader
+            dispatch(authActions.setLoading());
+
             // we need header, cos the user will upload his image when register
             const { data } = await request.post("/api/auth/register", user,
                 {
@@ -25,6 +28,9 @@ export function registerUser(user) {
             // register new user depend on data
             dispatch(authActions.register(data));
 
+            // remove loader
+            dispatch(authActions.clearLoading());
+
             // when register is success , make the [errorRegisterMsg] empty,in order to empty the danger alert msg in browser
             dispatch(authActions.setErrorRegisterMsg(""));
 
@@ -35,6 +41,8 @@ export function registerUser(user) {
 
             // show failed toast in case the register is FAILED
             toast.error(error.response.data.message);
+
+            dispatch(authActions.clearLoading());
 
         }
 
@@ -49,10 +57,15 @@ export function loginUser(user) {
     return async (dispatch) => {
 
         try {
+            // run the loader
+            dispatch(authActions.setLoading());
 
             const { data } = await request.post("/api/auth/login", user);
 
             dispatch(authActions.login(data));
+
+            // remove loader
+            dispatch(authActions.clearLoading());
 
             //if no error ,save the user info in localstorage
             localStorage.setItem("userInfo", JSON.stringify(data));
@@ -60,6 +73,8 @@ export function loginUser(user) {
         } catch (error) {
 
             toast.error(error.response.data.message);
+
+            dispatch(authActions.clearLoading());
 
         }
 

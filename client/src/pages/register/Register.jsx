@@ -15,7 +15,7 @@ const Register = () => {
 
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state.auth);
 
   const [username, setUsername] = useState("");
 
@@ -128,7 +128,20 @@ const Register = () => {
                     </div>
 
                     <div className="text-center">
-                      <button type="submit">Sign Up</button>
+                      <button type="submit">
+                        {loading
+                          ?
+                          <>
+                            <div
+                              className="spinner-border"
+                              style={{ width: "24px", height: "24px", borderWidth: "2px", color: "#fff" }}>
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                          </>
+                          :
+                          "Sign Up"
+                        }
+                      </button>
                     </div>
 
                   </form>

@@ -14,7 +14,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
 
@@ -85,7 +85,20 @@ const Login = () => {
                     </div>
 
                     <div className="text-center">
-                      <button type="submit">Sign In</button>
+                      <button type="submit">
+                        {loading
+                          ?
+                          <>
+                            <div
+                              className="spinner-border"
+                              style={{ width: "24px", height: "24px", borderWidth: "2px", color: "#fff" }}>
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                          </>
+                          :
+                          "Sign In"
+                        }
+                      </button>
                     </div>
 
                   </form>

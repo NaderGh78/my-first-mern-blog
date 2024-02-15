@@ -15,7 +15,7 @@ const EditPost = () => {
 
     const dispatch = useDispatch();
 
-    const { post, loading } = useSelector((state) => state.post);
+    const { post, isPostEdited } = useSelector((state) => state.post);
 
     const { categories } = useSelector((state) => state.category);
 
@@ -144,13 +144,13 @@ const EditPost = () => {
 
                     <div className="text-center">
                         <button type="submit" className="d-flex justify-content-center mx-auto">
-                            {!loading
+                            {!isPostEdited
                                 ? "Edit"
                                 :
                                 <>
                                     <div
                                         className="spinner-border"
-                                        style={{ width: "25px", height: "25px", margin: "2px 0", borderWidth: "2px", color: "#fff" }}>
+                                        style={{ width: "24px", height: "24px", borderWidth: "2px", color: "#fff" }}>
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                 </>}

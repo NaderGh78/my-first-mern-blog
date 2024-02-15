@@ -107,9 +107,8 @@ const Home = () => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
-          } 
+          }
         </div>
-
       </div>
     </>
   )

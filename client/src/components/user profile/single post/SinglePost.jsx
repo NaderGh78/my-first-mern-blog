@@ -21,7 +21,7 @@ const SinglePost = ({ post, userInLocalStorage, profileUsername, profileId, onPo
             </div>
             <div className="bottom">
                 <h5 className="text-capitalize mb-0">
-                    {post?.title && post?.title.length > 48 ? post?.title.slice(0, 48) + "..." : post?.title}
+                    {post?.title && post?.title.length > 42 ? post?.title.slice(0, 42) + "..." : post?.title}
                 </h5>
                 <div className="bottom-body">
                     <div className="author d-flex align-items-center justify-content-between mt-2">

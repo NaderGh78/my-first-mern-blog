@@ -11,6 +11,7 @@ const authSlice = createSlice({
             JSON.parse(localStorage.getItem("userInfo")) : null,
         register: null,
         errorRegisterMsg: "",
+        loading: false
     },
     reducers: {
 
@@ -36,6 +37,14 @@ const authSlice = createSlice({
 
         setUserPhoto(state, action) {
             state.user.userImage = action.payload;
+        },
+
+        setLoading(state) {
+            state.loading = true;
+        },
+
+        clearLoading(state) {
+            state.loading = false;
         }
 
     }

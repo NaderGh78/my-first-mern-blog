@@ -1,5 +1,4 @@
 import { postActions } from "../slices/postSlice";
-import { authActions } from "../slices/authSlice";
 import request from "../../utils/request";
 import { toast } from "react-toastify";
 
@@ -121,7 +120,7 @@ export function createPost(newPost) {
         try {
 
             // run the loader
-            dispatch(postActions.setLoading());
+            dispatch(postActions.setIsPostCreated());
 
             /*
             create a new post based on 
@@ -135,11 +134,10 @@ export function createPost(newPost) {
                     },
                 });
 
-            // remove the loader
-
             dispatch(postActions.setPosts(data));
 
-            dispatch(postActions.clearLoading());
+            // remove the loader
+            dispatch(postActions.clearIsPostCreated());
 
             // show success toast in case new post added succefully
             toast.success(data.message, {
@@ -148,9 +146,10 @@ export function createPost(newPost) {
 
         } catch (error) {
 
-            dispatch(postActions.clearLoading());
 
             toast.error(error?.response?.data?.message);
+
+            dispatch(postActions.clearIsPostCreated());
 
         }
 
@@ -166,7 +165,8 @@ export function updatePost(editPost, postId) {
 
         try {
 
-
+            // run the loader
+            dispatch(postActions.setIsPostEdited());
 
             /*
             update a new post based on 
@@ -181,13 +181,11 @@ export function updatePost(editPost, postId) {
                 },
 
             );
-            dispatch(postActions.setLoading());
+
             dispatch(postActions.setPost(data));
 
-            dispatch(postActions.clearLoading());
+            dispatch(postActions.clearIsPostEdited());
 
-            // remove the loader after 2s,when post update succefully
-            // setTimeout(() => dispatch(postActions.clearLoading()), 2000); // 2s
 
             //show success toast in case update post succefully
             toast.success("Post Updated Successfully,Please Go Home", {
@@ -195,8 +193,10 @@ export function updatePost(editPost, postId) {
             });
 
         } catch (error) {
-            dispatch(postActions.clearLoading());
+
             toast.error(error.response.data.message);
+
+            dispatch(postActions.clearIsPostEdited());
 
         }
 
@@ -225,8 +225,8 @@ export function deletePost(postId) {
 
             );
 
-            // show success toast in case deleted post added succefully
-            toast.success("hello", {
+            // show success toast in case post deleted succefully
+            toast.success(data.message, {
                 position: toast.POSITION.TOP_RIGHT
             });
 
@@ -236,7 +236,7 @@ export function deletePost(postId) {
             dispatch(postActions.setIsPostDelete());
 
             // back the isPostDelete to initial value after 2 milsecond
-            setTimeout(() => dispatch(postActions.ClearIsPostDelete()), 2);
+            setTimeout(() => dispatch(postActions.clearIsPostDelete()), 2);
 
             console.log(data)
 
@@ -278,6 +278,7 @@ export function toggleLikePost(postId) {
     return async (dispatch, getState) => {
 
         try {
+
             // toggle likes on post based on [post id provided + token for user or admin]
             const { data } = await request.put(`/api/post/like/${postId}`, {},
                 {
