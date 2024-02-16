@@ -19,6 +19,8 @@ const AdminSidebar = () => {
 
   const { pathname } = useLocation();
 
+  const PF = "https://mern-blog-njw7.onrender.com/images/";
+
   /*===========================================*/
 
   const Logout = () => {
@@ -93,7 +95,7 @@ const AdminSidebar = () => {
           </li>
         </ul>
         <div className="sidebar-bottom">
-          <img src={process.env.PUBLIC_URL + `/uploads/${user?.userImage}`} alt="user image" />
+          <img src={PF + user?.userImage} alt="user image" />
           <Link to={`/profile/${user?._id}`}>{user?.username}</Link>
           <span
             onClick={handleLogout}

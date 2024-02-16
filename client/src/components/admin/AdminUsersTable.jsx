@@ -17,6 +17,8 @@ const AdminUsersTable = () => {
 
     const { profiles } = useSelector((state) => state.profile);
 
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+
     /*===========================================*/
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const AdminUsersTable = () => {
                                         <a href={`mailto:${el.email}`} target="_blank">{el.email}</a>
                                     </td>
                                     <td className='text-center'>
-                                        <img src={process.env.PUBLIC_URL + `/uploads/${el.userImage}`} alt="user image" />
+                                        <img src={PF + el.userImage} alt="user image" />
                                     </td>
                                     <td className='text-center'>{new Date(el.createdAt).toDateString()}</td>
                                     <td className='text-center text-nowrap'>

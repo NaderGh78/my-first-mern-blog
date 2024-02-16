@@ -31,6 +31,8 @@ const UserProfile = () => {
 
     const navigate = useNavigate();
 
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+
     /*===========================================*/
 
     // get user profile based on id 
@@ -117,7 +119,7 @@ const UserProfile = () => {
                     <div className="user-profile-img-box text-center">
                         <div className="img-wrapper">
                             <img
-                                src={process.env.PUBLIC_URL + `/uploads/${profile?.userImage}`}
+                                src={PF + profile?.userImage}
                                 alt="user image"
                             />
                         </div>

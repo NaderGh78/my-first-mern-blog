@@ -9,6 +9,8 @@ const AdminRecentUsers = ({ profiles }) => {
     // check if the users number is less than 5 show them, otherwise sliced the first 5 users
     const slicedUsers = profiles?.length < 5 ? profiles : profiles?.slice(0, 5);
 
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+
     return (
         <div className='table-box recent-users'>
             <h2 className="h2 text-capitalize text-dark">recent users</h2>
@@ -28,7 +30,7 @@ const AdminRecentUsers = ({ profiles }) => {
                                 <Link to={`/profile/${el._id}`} className="text-decoration-none text-dark">
                                     {el.userImage &&
                                         <img
-                                            src={process.env.PUBLIC_URL + `/uploads/${el.userImage}`}
+                                            src={PF + el.userImage}
                                             alt="user image"
                                             className="d-block mx-auto"
                                             style={{ width: "33px", height: "33px" }}

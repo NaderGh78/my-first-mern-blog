@@ -9,6 +9,8 @@ const AdminRecentPosts = ({ posts }) => {
   // check if the posts length is less than 5 show them, otherwise sliced the first 5 posts
   const slicedPosts = posts?.length < 5 ? posts : posts?.slice(0, 5);
 
+  const PF = "https://mern-blog-njw7.onrender.com/images/";
+
   return (
     <div className='table-box recent-posts'>
       <h2>recent posts</h2>
@@ -31,7 +33,7 @@ const AdminRecentPosts = ({ posts }) => {
                 <Link to={`/profile/${el.user._id}`} className="text-decoration-none text-dark">
                   {el.user.userImage &&
                     <img
-                      src={process.env.PUBLIC_URL + `/uploads/${el.user.userImage}`}
+                      src={PF + el.user.userImage}
                       alt="user image"
                       className="d-block mx-auto"
                       style={{ width: "33px", height: "33px" }}
@@ -47,11 +49,11 @@ const AdminRecentPosts = ({ posts }) => {
               <td className='text-center'>{el.title}</td>
               <td className='text-center'>
                 <img
-                  src={process.env.PUBLIC_URL + `/uploads/${el.postImage}`}
+                  src={PF+el.postImage}
                   alt="post image"
                   className="d-block mx-auto"
                   style={{ width: "100px", height: "60px", borderRadius: "0" }}
-                />
+                /> 
               </td>
               <td className='text-center'>{el.category}</td>
               <td className='text-center text-nowrap'>{new Date(el.createdAt).toDateString()}</td>

@@ -18,6 +18,8 @@ const AdminPostsTable = () => {
 
     const { posts } = useSelector((state) => state.post);
 
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+
     /*===========================================*/
 
     useEffect(() => {
@@ -75,7 +77,7 @@ const AdminPostsTable = () => {
                                 <td className='text-capitalize bg-danger text-center'>
                                     {el.user.userImage &&
                                         <img
-                                            src={process.env.PUBLIC_URL + `/uploads/${el.user.userImage}`}
+                                            src={PF + el.user.userImage}
                                             alt="user image"
                                             className="d-block mx-auto"
                                             style={{ width: "33px", height: "33px" }}
@@ -88,7 +90,7 @@ const AdminPostsTable = () => {
                                 <td className='text-center'>{el.title}</td>
                                 <td className='text-center'>
                                     <img
-                                        src={process.env.PUBLIC_URL + `/uploads/${el.postImage}`}
+                                        src={PF + el.postImage}
                                         alt="post image"
                                         className="d-block mx-auto"
                                         style={{ width: "100px", height: "60px", borderRadius: "0" }}
