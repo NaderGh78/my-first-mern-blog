@@ -8,6 +8,7 @@ import { fetchAllComments } from '../../../redux/apiCalls/commentApiCall';
 import Comments from '../comments/Comments';
 import { FaTrash, FaRegClock } from "react-icons/fa6";
 import { LiaEdit } from "react-icons/lia";
+import imgSrc from "../../../utils/constants";
 import Spinner from '../../../components/common/spinner/Spinner';
 import { ToastContainer } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -27,13 +28,9 @@ const PostDetails = () => {
 
     const { isCommentDelete } = useSelector((state) => state.comment);
 
-    const { profile, profiles } = useSelector((state) => state.profile);
-
     const { id } = useParams();
 
     const navigate = useNavigate();
-
-    const PF = "https://mern-blog-njw7.onrender.com/images/";
 
     /*===========================================*/
 
@@ -98,10 +95,10 @@ const PostDetails = () => {
                 <div className="post-details-content">
                     {post?.postImage &&
                         <img
-                            src={PF+post?.postImage}
+                            src={imgSrc + post?.postImage}
                             alt="post image"
                             className='post-master-img'
-                        /> 
+                        />
                     }
                     <h2>{post?.title}</h2>
                     <div className="user-details">
@@ -110,8 +107,7 @@ const PostDetails = () => {
                                 to={`/profile/${post?.user._id}`}
                             >
                                 {post?.user.userImage &&
-                                    // <img src={process.env.PUBLIC_URL + `/uploads/${post?.user.userImage}`} alt="user image" />
-                                       <img src={PF+post?.user.userImage} alt="user image" />
+                                    <img src={imgSrc + post?.user.userImage} alt="user image" />
                                 }
                             </Link>
 

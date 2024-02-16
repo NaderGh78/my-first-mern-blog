@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../redux/apiCalls/commentApiCall";
 import { BsHandThumbsUpFill, BsHandThumbsUp } from "react-icons/bs";
+import imgSrc from "../../utils/constants";
 
 /*===========================================*/
 /*===========================================*/
@@ -17,8 +18,6 @@ const AddComment = ({ user, post, onLike }) => {
     const postId = post?._id;
 
     const [text, setText] = useState("");
-    
-    const PF = "https://mern-blog-njw7.onrender.com/images/";
 
     /*===========================================*/
 
@@ -62,7 +61,7 @@ const AddComment = ({ user, post, onLike }) => {
             <form className="my-3" style={{ width: "480px" }} onSubmit={addCommentHandler}>
                 <p style={{ fontSize: "13px", color: "var(--dark)" }}>Signed in as:
                     <img
-                        src={PF+user?.userImage}
+                        src={imgSrc + user?.userImage}
                         width="25"
                         height="25"
                         alt="user image"

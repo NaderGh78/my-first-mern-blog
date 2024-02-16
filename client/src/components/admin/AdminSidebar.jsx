@@ -4,6 +4,7 @@ import { logoutUser } from "../../redux/apiCalls/authApiCall";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { HiOutlineUserGroup, HiChartPie } from 'react-icons/hi';
 import { BsFilePost, BsFillPersonFill, BsFillTagFill } from "react-icons/bs";
+import imgSrc from "../../utils/constants";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css 
 
@@ -18,8 +19,6 @@ const AdminSidebar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const { pathname } = useLocation();
-
-  const PF = "https://mern-blog-njw7.onrender.com/images/";
 
   /*===========================================*/
 
@@ -95,7 +94,7 @@ const AdminSidebar = () => {
           </li>
         </ul>
         <div className="sidebar-bottom">
-          <img src={PF + user?.userImage} alt="user image" />
+          <img src={imgSrc + user?.userImage} alt="user image" />
           <Link to={`/profile/${user?._id}`}>{user?.username}</Link>
           <span
             onClick={handleLogout}

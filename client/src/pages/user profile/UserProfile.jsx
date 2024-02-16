@@ -4,8 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
 import { deleteProfile, getUserProfile } from "../../redux/apiCalls/profileApiCall";
-import { deletePost, getAllPosts, getAllPostsForAdmin } from "../../redux/apiCalls/postApiCall";
+import { deletePost, getAllPostsForAdmin } from "../../redux/apiCalls/postApiCall";
 import { setShowModal, setHideModal } from "../../redux/slices/profileSlice";
+import imgSrc from "../../utils/constants";
 import Spinner from "../../components/common/spinner/Spinner";
 import { LiaEdit } from "react-icons/lia";
 import { FaTrash } from "react-icons/fa6";
@@ -25,13 +26,11 @@ const UserProfile = () => {
 
     const { profile, show, loading, isProfileDeleted } = useSelector((state) => state.profile);
 
-    const { post, posts, isPostDelete } = useSelector((state) => state.post);
+    const { posts, isPostDelete } = useSelector((state) => state.post);
 
     const { id } = useParams();
 
     const navigate = useNavigate();
-
-    const PF = "https://mern-blog-njw7.onrender.com/images/";
 
     /*===========================================*/
 
@@ -119,7 +118,7 @@ const UserProfile = () => {
                     <div className="user-profile-img-box text-center">
                         <div className="img-wrapper">
                             <img
-                                src={PF + profile?.userImage}
+                                src={imgSrc + profile?.userImage}
                                 alt="user image"
                             />
                         </div>

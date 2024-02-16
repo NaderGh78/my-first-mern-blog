@@ -5,6 +5,7 @@ import { deletePost, getAllPostsForAdmin } from "../../redux/apiCalls/postApiCal
 import { getAllUsersProfile } from "../../redux/apiCalls/profileApiCall";
 import { FaTrash } from "react-icons/fa6";
 import { LiaEye } from "react-icons/lia";
+import imgSrc from "../../utils/constants";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css 
 
@@ -17,8 +18,6 @@ const AdminPostsTable = () => {
     const dispatch = useDispatch();
 
     const { posts } = useSelector((state) => state.post);
-
-    const PF = "https://mern-blog-njw7.onrender.com/images/";
 
     /*===========================================*/
 
@@ -77,7 +76,7 @@ const AdminPostsTable = () => {
                                 <td className='text-capitalize bg-danger text-center'>
                                     {el.user.userImage &&
                                         <img
-                                            src={PF + el.user.userImage}
+                                            src={imgSrc + el.user.userImage}
                                             alt="user image"
                                             className="d-block mx-auto"
                                             style={{ width: "33px", height: "33px" }}
@@ -90,7 +89,7 @@ const AdminPostsTable = () => {
                                 <td className='text-center'>{el.title}</td>
                                 <td className='text-center'>
                                     <img
-                                        src={PF + el.postImage}
+                                        src={imgSrc + el.postImage}
                                         alt="post image"
                                         className="d-block mx-auto"
                                         style={{ width: "100px", height: "60px", borderRadius: "0" }}

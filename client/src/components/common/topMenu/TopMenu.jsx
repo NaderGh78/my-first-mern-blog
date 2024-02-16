@@ -11,6 +11,7 @@ import { BsFilePerson, BsBoxArrowInLeft } from "react-icons/bs";
 import { FaUnlock } from "react-icons/fa6";
 import { LiaSun } from "react-icons/lia";
 import { FaRegMoon } from "react-icons/fa6";
+import imgSrc from "../../../utils/constants";
 
 /*===========================================*/
 /*===========================================*/
@@ -23,8 +24,6 @@ const TopMenu = () => {
   const { user } = useSelector((state) => state.auth);
 
   const { isDarkMode } = useSelector((state) => state.theme);
-
-  const PF = "https://mern-blog-njw7.onrender.com/images/";
 
   /*===========================================*/
 
@@ -126,8 +125,7 @@ const TopMenu = () => {
                         aria-expanded="false"
                       >
                         <span className='text-capitalize fs-6'>{user?.username}</span>
-                        {/* <img src={process.env.PUBLIC_URL + `/uploads/${user?.userImage}`} alt="user image" /> */}
-                        <img src={PF+user?.userImage} alt="user image" />
+                        <img src={imgSrc + user?.userImage} alt="user image" />
                       </button>
                       <ul className="dropdown-menu">
                         <li className='border-bottom pb-1'>
@@ -136,8 +134,6 @@ const TopMenu = () => {
                             style={{ fontSize: "13px" }}
                           >{user?.username}</span>
                           <span className='d-block text-center' style={{ fontSize: "13px" }}>{user?.email}</span>
-
-
                         </li>
 
                         <li className='border-bottom'>
