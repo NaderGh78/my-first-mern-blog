@@ -27,7 +27,7 @@ const commentPath = require("./routes/commentRoute");
 const { errorHandling, notFound } = require("./middlewares/errorHandling");
 
 const path = require("path");
-
+ 
 /*===========================================*/
 /*===========================================*/
 /*===========================================*/
@@ -41,6 +41,8 @@ app.use(express.json());
 // app.use(cors({origin: "https://mern-blog-njw7.onrender.com"}));
 
 // app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+app.use('/images', express.static('./public/images'))
 
 app.use("/api/customer", customerPath);
 
