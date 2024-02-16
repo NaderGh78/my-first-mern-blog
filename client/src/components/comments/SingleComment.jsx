@@ -17,13 +17,16 @@ const SingleComment = ({
 }) => {
     // console.log("comment details" , commentDetails.user.userImage)
     // after populate user into comment we got each comment with user
+
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+    
     return (
         <div className="single-comment border-bottom border-1 py-2 px-3 mb-2">
             <div className="top d-flex mb-1 gap-2">
                 {/*  <Link to={`/profile/${commentDetails.user}`}> */}
                 <Link to={`/profile/${commentDetails?.user?._id}`}>
                     <img
-                        src={process.env.PUBLIC_URL + `/uploads/${commentDetails?.user?.userImage}`}
+                        src={PF+commentDetails?.user?.userImage}
                         width="45"
                         height="45"
                         alt="user image"
