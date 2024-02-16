@@ -33,6 +33,8 @@ const PostDetails = () => {
 
     const navigate = useNavigate();
 
+    const PF = "https://mern-blog-njw7.onrender.com/images/";
+
     /*===========================================*/
 
     // fetch all comments ,in order to change the comments length in every time [isCommentDelete] changed
@@ -96,10 +98,10 @@ const PostDetails = () => {
                 <div className="post-details-content">
                     {post?.postImage &&
                         <img
-                            src={process.env.PUBLIC_URL + `/uploads/${post?.postImage}`}
+                            src={PF+post?.postImage}
                             alt="post image"
                             className='post-master-img'
-                        />
+                        /> 
                     }
                     <h2>{post?.title}</h2>
                     <div className="user-details">
@@ -108,7 +110,8 @@ const PostDetails = () => {
                                 to={`/profile/${post?.user._id}`}
                             >
                                 {post?.user.userImage &&
-                                    <img src={process.env.PUBLIC_URL + `/uploads/${post?.user.userImage}`} alt="user image" />
+                                    // <img src={process.env.PUBLIC_URL + `/uploads/${post?.user.userImage}`} alt="user image" />
+                                       <img src={PF+post?.user.userImage} alt="user image" />
                                 }
                             </Link>
 

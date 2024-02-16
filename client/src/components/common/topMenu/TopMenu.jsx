@@ -24,6 +24,8 @@ const TopMenu = () => {
 
   const { isDarkMode } = useSelector((state) => state.theme);
 
+  const PF = "https://mern-blog-njw7.onrender.com/images/";
+
   /*===========================================*/
 
   // in order to make active class when navigate pages
@@ -124,7 +126,8 @@ const TopMenu = () => {
                         aria-expanded="false"
                       >
                         <span className='text-capitalize fs-6'>{user?.username}</span>
-                        <img src={process.env.PUBLIC_URL + `/uploads/${user?.userImage}`} alt="user image" />
+                        {/* <img src={process.env.PUBLIC_URL + `/uploads/${user?.userImage}`} alt="user image" /> */}
+                        <img src={PF+user?.userImage} alt="user image" />
                       </button>
                       <ul className="dropdown-menu">
                         <li className='border-bottom pb-1'>
