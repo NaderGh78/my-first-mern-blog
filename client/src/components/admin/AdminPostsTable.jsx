@@ -55,7 +55,7 @@ const AdminPostsTable = () => {
 
     return (
         <div className='table-box mb-5'>
-            <h2>all posts</h2>
+            <h2>All Posts</h2>
             <table className="table table-hover table-bordered table-transparent">
                 <thead>
                     <tr>

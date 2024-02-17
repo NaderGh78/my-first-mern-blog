@@ -1,7 +1,7 @@
 import './admin.css';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AdminSidebar } from '../../allPagesPaths';
+import AdminNav from '../../components/admin/AdminNav';
 
 /*===========================================*/
 /*===========================================*/
@@ -15,17 +15,14 @@ const Admin = () => {
 
   return (
     <>
+      {/* check it there is an user , and the user is admin show the content , otherwise not show home page */}
       {user?.isAdmin
         ?
         <>
-          <div className='admin text-white'>
+          <div className='admin'>
             <div className="admin-content">
-              <div className="left">
-                <AdminSidebar />
-              </div>
-              <div className="right">
-                <Outlet />
-              </div>
+              <AdminNav />
+              <Outlet />
             </div>
           </div>
         </>
@@ -33,7 +30,6 @@ const Admin = () => {
         <Navigate to="/" replace />
       }
     </>
-
   );
 }
 

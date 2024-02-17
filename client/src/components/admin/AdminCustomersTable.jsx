@@ -83,8 +83,8 @@ const AdminCustomersTable = () => {
 
     return (
         <div className='table-box'>
-            <div className="headTitle">
-                <h1>all customers</h1>
+            <div className="headTitle d-flex align-items-center justify-content-between">
+                <h1>All Customers</h1>
                 <button
                     className='btn btn-success rounded-1'
                     onClick={() => { dispatch(setShowAddNewCutomerModal()) }}

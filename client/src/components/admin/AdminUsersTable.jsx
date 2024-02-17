@@ -50,7 +50,7 @@ const AdminUsersTable = () => {
 
     return (
         <div className='table-box'>
-            <h2>all users</h2>
+            <h2>All Users</h2>
             <table className="table table-hover table-bordered table-transparent">
                 <thead>
                     <tr>
