@@ -258,4 +258,14 @@
         margin-bottom: 30px;
     }
 
+    .admin-content .admin-main .recents {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .admin-content .admin-main .recents .recent-users,
+    .admin-content .admin-main .recents .recent-posts {
+        width: 100%;
+    }
+
 }
