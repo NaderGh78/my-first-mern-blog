@@ -95,7 +95,7 @@ const PostDetails = () => {
                 <div className="post-details-content">
                     {post?.postImage &&
                         <img
-                            src={imgSrc + post?.postImage}
+                            src={post?.postImage?.url}
                             alt="post image"
                             className='post-master-img'
                         />

@@ -8,19 +8,19 @@ const path = require('path');
 // Photo Storage
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, "uploads")
+        callback(null, path.join(__dirname, "../uploads"));
     },
     filename: (req, file, callback) => {
         if (file) {
 
             callback(null, `imgae-${Date.now()}.${file.originalname}`);
         } else {
-            cb(null, false);
+            callback(null, false);
         }
     }
 });
 
-/*===========================================*/
+/*===========================================*/ 
 
 // Photo Upload Middleware
 const upload = multer({

@@ -18,7 +18,7 @@ const SinglePost = ({ post, userInLocalStorage, profileUsername, profileId, onPo
     return (
         <div className="single-post">
             <div className="top">
-                {post?.postImage && <img src={imgSrc + post?.postImage} alt="post image" />}
+                {post?.postImage && <img src={post?.postImage?.url} alt="post" />}
             </div>
             <div className="bottom">
                 <h5 className="text-capitalize mb-0">

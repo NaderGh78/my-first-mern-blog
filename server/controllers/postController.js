@@ -1,9 +1,12 @@
 const asynHandler = require("express-async-handler");
+const fs = require("fs");
+const path = require("path");
 const {
     PostModal,
     newPostValidation,
     updatePostValidation
 } = require("../models/PostModal");
+const cloudinary = require("../utils/cloudinary");
 
 /*===========================================*/
 /*===========================================*/
@@ -61,7 +64,11 @@ const getAllPostsCtrl = asynHandler(
 */
 
 const newPostCtrl = asynHandler(
+
     async (req, res) => {
+
+        const { title, category, description, postImage } = req.body;
+
         // 1. validation
         const { error } = newPostValidation(req.body);
         if (error) {
@@ -76,17 +83,29 @@ const newPostCtrl = asynHandler(
             return res.status(400).json({ message: "Post Title Already Exist." });
         }
 
+        const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+
+        const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+
         // 4. create new post
         post = await PostModal.create({
-            title: req.body.title,
-            category: req.body.category,
-            description: req.body.description,
+            title,
+            category,
+            description,
             user: req.userDecoded.id,
-            postImage: req.file && req.file.originalname ? req.file.filename : undefined,
+            // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
+            postImage: {
+                url: result.secure_url,
+                publicId: result.public_id,
+            }
         });
 
         // 5. send response to client
         res.status(201).json({ message: "Post Created Successfully", post });
+
+        // 6. Remove image from the server
+        fs.unlinkSync(imagePath);
+
     }
 );
 
@@ -105,7 +124,7 @@ const getPostCtrl = asynHandler(
         // const post = await PostModal.findById(req.params.id).populate("user", ["-password"]).populate("comments");
 
         const post = await PostModal.findById(req.params.id).populate("user", ["-password"]).populate({
-            path: "comments",
+            path: "comments", 
             populate: {
                 path: "user",
                 select: "_id username userImage"
@@ -130,7 +149,9 @@ const getPostCtrl = asynHandler(
  * @access private (only logged user and admin)
 */
 const updatePostCtrl = asynHandler(
+
     async (req, res) => {
+
         // 1. validation
         const { error } = updatePostValidation(req.body);
         if (error) {
@@ -152,6 +173,14 @@ const updatePostCtrl = asynHandler(
                 .json({ message: "access denied, you are not allowed" });
         }
 
+        // 4. Delete the old image
+        await cloudinary.uploader.destroy(post.postImage.publicId);
+
+        // 5. Upload new photo
+        const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+
+        const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+
         // 5. update the post,and populate [user] without password
         const updatePost = await PostModal.findByIdAndUpdate(
             req.params.id,
@@ -160,7 +189,11 @@ const updatePostCtrl = asynHandler(
                     title: req.body.title,
                     category: req.body.category,
                     description: req.body.description,
-                    postImage: req.file && req.file.originalname ? req.file.filename : undefined,
+                    // postImage: req.file && req.file.originalname ? req.file.filename : undefined,
+                    postImage: {
+                        url: result.secure_url,
+                        publicId: result.public_id,
+                    }
                 }
             },
             { new: true }
@@ -168,6 +201,10 @@ const updatePostCtrl = asynHandler(
 
         // 6. send response to client
         res.status(200).json(updatePost);
+
+        // 7. Remvoe image from the server
+        fs.unlinkSync(imagePath);
+
     });
 
 /*===========================================*/
