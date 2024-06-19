@@ -39,7 +39,7 @@ const AddComment = ({ user, post, onLike }) => {
                 <span style={{ fontSize: "20px", cursor: "pointer" }}>
                     {
                         // if the user id already exist in [post.likes arry] that mean the user is [already like the post] ,otherwise no
-                        post?.likes.includes(user?._id)
+                        post?.likes?.includes(user?._id)
                             ?
                             <>
                                 <BsHandThumbsUpFill
@@ -56,12 +56,12 @@ const AddComment = ({ user, post, onLike }) => {
                             </>
 
                     }
-                </span>{post?.likes.length} likes
+                </span>{post?.likes?.length} likes
             </small>
             <form className="my-3" style={{ width: "480px" }} onSubmit={addCommentHandler}>
                 <p style={{ fontSize: "13px", color: "var(--dark)" }}>Signed in as:
                     <img
-                        src={imgSrc + user?.userImage}
+                        src={user?.userImage?.url}
                         width="25"
                         height="25"
                         alt="user image"

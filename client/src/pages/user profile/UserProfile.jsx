@@ -118,7 +118,7 @@ const UserProfile = () => {
                     <div className="user-profile-img-box text-center">
                         <div className="img-wrapper">
                             <img
-                                src={imgSrc + profile?.userImage}
+                                src={profile?.userImage?.url}
                                 alt="user image"
                             />
                         </div>

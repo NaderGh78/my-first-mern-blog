@@ -24,18 +24,18 @@ const UpdateUserModal = ({ show, setShowModal, setHideModal, profile }) => {
 
   const [file, setFile] = useState(null);
 
-  /*
-  here we check if the user dont uplaod any personal image when register for firt time,
-  the image will be by default with name "user-avatar.png",as we did in db
+  // /*
+  // here we check if the user dont uplaod any personal image when register for firt time,
+  // the image will be by default with name "user-avatar.png",as we did in db
 
-  but if the user alreeeeeeeeeeeedy upload an image it will be like 
-  userImage : "imgae-1705168448269.imageUpload.jpg" in db,therfore splited it as an arr,
-  in ordrer to show the old image value as string beside [uplad imge btn]
-  */
-  const oldImagName =
-    profile?.userImage === "user-avatar.png"
-      ? profile?.userImage
-      : profile?.userImage.split(".").slice(1, 3).join(".");
+  // but if the user alreeeeeeeeeeeedy upload an image it will be like 
+  // userImage : "imgae-1705168448269.imageUpload.jpg" in db,therfore splited it as an arr,
+  // in ordrer to show the old image value as string beside [uplad imge btn]
+  // */
+  // const oldImagName =
+  //   profile?.userImage === "user-avatar.png"
+  //     ? profile?.userImage
+  //     : profile?.userImage.split(".").slice(1, 3).join(".");
 
   /*===========================================*/
 
@@ -148,7 +148,7 @@ const UpdateUserModal = ({ show, setShowModal, setHideModal, profile }) => {
               a - in case change the image, show the name of image that update it
               b - in case NOT change the image,show the old image name that already in db
               */}
-              {file?.name ? <span>{file?.name}</span> : <span>{oldImagName}</span>}
+              {/* {file?.name ? <span>{file?.name}</span> : <span>{oldImagName}</span>} */}
             </div>
             <div className="text-center">
               <button type="submit">Update Profile</button>

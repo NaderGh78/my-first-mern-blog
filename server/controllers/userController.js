@@ -1,4 +1,7 @@
 const asynHandler = require("express-async-handler");
+const fs = require("fs");
+const path = require("path");
+const cloudinary = require("../utils/cloudinary");
 const {
     UserModel,
     updateUserValidation
@@ -76,6 +79,22 @@ const updateUserCtrl = asynHandler(
             req.body.password = await bcrypt.hash(req.body.password, salt);
         }
 
+
+ // 2. check if the post exists with his id 
+ let user = await UserModel.findById(req.params.id);
+ 
+
+ // 4. Delete the old image
+ await cloudinary.uploader.destroy(user.userImage.publicId);
+
+
+
+
+// 5. Upload new photo
+const AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+const result = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
+
+
         // 3. update user
         const updateUser = await UserModel.findByIdAndUpdate(req.params.id, {
             $set: {
@@ -83,12 +102,20 @@ const updateUserCtrl = asynHandler(
                 email: req.body.email,
                 password: req.body.password,
                 bio: req.body.bio && req.body.bio,//if user fill the bio field
-                userImage: req.file && req.file.originalname ? req.file.filename : undefined,
+                // userImage: req.file && req.file.originalname ? req.file.filename : undefined,
+                userImage: {
+                    url: result.secure_url,
+                    publicId: result.public_id,
+                }
             }
         }, { new: true });
 
         // 4. send response to client
         res.status(200).json(updateUser);
+
+// 5. Remvoe image from the server
+fs.unlinkSync(AvatarImagePath);
+
     }
 );
 

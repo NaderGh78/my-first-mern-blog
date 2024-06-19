@@ -22,7 +22,7 @@ const SingleComment = ({
             <div className="top d-flex mb-1 gap-2">
                 <Link to={`/profile/${commentDetails?.user?._id}`}>
                     <img
-                        src={imgSrc + commentDetails?.user?.userImage}
+                        src={commentDetails?.user?.userImage?.url}
                         width="45"
                         height="45"
                         alt="user image"

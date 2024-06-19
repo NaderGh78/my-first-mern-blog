@@ -104,18 +104,18 @@ const PostDetails = () => {
                     <div className="user-details">
                         <div className="left d-flex align-items-center gap-2">
                             <Link
-                                to={`/profile/${post?.user._id}`}
+                                to={`/profile/${post?.user?._id}`}
                             >
-                                {post?.user.userImage &&
-                                    <img src={imgSrc + post?.user.userImage} alt="user image" />
+                                {post?.user?.userImage &&
+                                    <img src={post?.user?.userImage?.url} alt="avatar" />
                                 }
                             </Link>
 
                             <div className="details">
                                 <Link
-                                    to={`/profile/${post?.user._id}`}
+                                    to={`/profile/${post?.user?._id}`}
                                 >
-                                    {post?.user.username}
+                                    {post?.user?.username}
                                 </Link>
                                 <span className='d-block'>{new Date(post?.createdAt).toDateString()}</span>
                                 <span className='d-flex align-items-center gap-1'>

@@ -69,7 +69,7 @@ const Home = () => {
       ]
     });
   }
- 
+
   /*===========================================*/
 
   if (loading) return <Spinner />;
@@ -78,7 +78,7 @@ const Home = () => {
       <div className="home" style={{ marginTop: "110px" }}>
         <ToastContainer autoClose={6000} />
         <div className="container-fluid">
-          <div className="home-content d-flex  gap-2 flex-wrap">
+          <div className="home-content d-flex  gap-4 flex-wrap">
             <div className="single-posts-box">
               {
                 posts.length > 0

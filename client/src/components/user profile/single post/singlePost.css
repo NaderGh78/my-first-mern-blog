@@ -1,6 +1,6 @@
 .single-post {
     position: relative;
-    width: 370px;
+    width: calc((100% - 60px)/3);
     height: 400px;
     border: 1px solid teal;
     border-radius: 10px;

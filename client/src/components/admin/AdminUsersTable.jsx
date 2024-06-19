@@ -77,7 +77,7 @@ const AdminUsersTable = () => {
                                         <a href={`mailto:${el.email}`} target="_blank">{el.email}</a>
                                     </td>
                                     <td className='text-center'>
-                                        <img src={imgSrc + el.userImage} alt="user image" />
+                                        <img src={el.userImage?.url} alt="avatar" />
                                     </td>
                                     <td className='text-center'>{new Date(el.createdAt).toDateString()}</td>
                                     <td className='text-center text-nowrap'>

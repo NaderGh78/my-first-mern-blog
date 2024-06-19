@@ -29,7 +29,7 @@ const AdminRecentUsers = ({ profiles }) => {
                                 <Link to={`/profile/${el._id}`} className="text-decoration-none text-dark">
                                     {el.userImage &&
                                         <img
-                                            src={imgSrc + el.userImage}
+                                            src={el.userImage?.url}
                                             alt="user image"
                                             className="d-block mx-auto"
                                             style={{ width: "33px", height: "33px" }}

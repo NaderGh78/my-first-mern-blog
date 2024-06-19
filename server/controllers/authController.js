@@ -1,4 +1,7 @@
 const asynHandler = require("express-async-handler");
+const fs = require("fs");
+const path = require("path");
+const cloudinary = require("../utils/cloudinary");
 const bcrypt = require('bcryptjs');
 const { UserModel, registerValidation, loginValidation } = require("../models/UserModel");
 
@@ -30,16 +33,29 @@ const register = asynHandler(
         // 3 - hash the password
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
+
+
+
+        const AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+const imgResult = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
+
+
+
+
         user = new UserModel({
             email: req.body.email,
             username: req.body.username,
             password: req.body.password,
             isAdmin: req.body.isAdmin,
             bio: req.body.bio,
-            userImage: req.file && req.file.originalname ? req.file.filename : undefined,
+            // userImage: req.file && req.file.originalname ? req.file.filename : undefined,
             // userImage: req.file.filename,
+            userImage: {
+                url: imgResult.secure_url,
+                publicId: imgResult.public_id,
+            }
         });
-
+        console.log(user)
         // 4 - new user and save it to db 
         const result = await user.save();
 
@@ -48,6 +64,10 @@ const register = asynHandler(
 
         // 5 - send response to client
         res.status(201).json({ message: "Successful Registration ,please Log In", ...others, token });
+
+        // 5. Remvoe image from the server
+fs.unlinkSync(AvatarImagePath);
+
     }
 );
 

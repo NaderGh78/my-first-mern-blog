@@ -1,12 +1,12 @@
 const asynHandler = require("express-async-handler");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require("../utils/cloudinary");
 const {
     PostModal,
     newPostValidation,
     updatePostValidation
 } = require("../models/PostModal");
-const cloudinary = require("../utils/cloudinary");
 
 /*===========================================*/
 /*===========================================*/
@@ -124,7 +124,7 @@ const getPostCtrl = asynHandler(
         // const post = await PostModal.findById(req.params.id).populate("user", ["-password"]).populate("comments");
 
         const post = await PostModal.findById(req.params.id).populate("user", ["-password"]).populate({
-            path: "comments", 
+            path: "comments",
             populate: {
                 path: "user",
                 select: "_id username userImage"

@@ -28,7 +28,7 @@ const SinglePost = ({ post, userInLocalStorage, profileUsername, profileId, onPo
                     <div className="author d-flex align-items-center justify-content-between mt-2">
                         <h5 className="mb-0">
                             <Link to={profileLink}>
-                                <BsFillPersonFill />{profileUsername ? profileUsername : post?.user.username}
+                                <BsFillPersonFill />{profileUsername ? profileUsername : post?.user?.username}
                             </Link>
                         </h5>
                         <span>{new Date(post?.createdAt).toDateString()}</span>

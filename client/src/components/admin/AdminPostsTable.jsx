@@ -76,8 +76,8 @@ const AdminPostsTable = () => {
                                 <td className='text-capitalize bg-danger text-center'>
                                     {el.user.userImage &&
                                         <img
-                                            src={imgSrc + el.user.userImage}
-                                            alt="user image"
+                                            src={el.user?.userImage?.url}
+                                            alt="avatar"
                                             className="d-block mx-auto"
                                             style={{ width: "33px", height: "33px" }}
                                         />}
@@ -89,8 +89,8 @@ const AdminPostsTable = () => {
                                 <td className='text-center'>{el.title}</td>
                                 <td className='text-center'>
                                     <img
-                                        src={imgSrc + el.postImage}
-                                        alt="post image"
+                                        src={el.postImage?.url}
+                                        alt="post"
                                         className="d-block mx-auto"
                                         style={{ width: "100px", height: "60px", borderRadius: "0" }}
                                     />

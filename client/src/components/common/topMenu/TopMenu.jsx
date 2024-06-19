@@ -125,7 +125,7 @@ const TopMenu = () => {
                         aria-expanded="false"
                       >
                         <span className='text-capitalize fs-6'>{user?.username}</span>
-                        <img src={imgSrc + user?.userImage} alt="user image" />
+                        <img src={user?.userImage?.url} alt="avatar" />
                       </button>
                       <ul className="dropdown-menu">
                         <li className='border-bottom pb-1'>

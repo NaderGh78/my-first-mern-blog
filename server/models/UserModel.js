@@ -38,9 +38,15 @@ const UserSchema = new Schema({
         default: false
     },
     userImage: {
-        type: String,
-        required: false,
-        default: "user-avatar.png",
+        // type: String,
+        // required: false,
+        // default: "user-avatar.png",
+        type: Object,
+        default: {
+            url: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+            publicId: null,
+        },
+        required: false
     }
 }, {
     timestamps: true,
@@ -75,7 +81,7 @@ function registerValidation(obj) {
         password: joi.string().trim().min(8).required(),
         bio: joi.string().optional(),
         isAdmin: joi.boolean(),
-        userImage: joi.string()
+        userImage: joi.object().allow("")
 
     });
 

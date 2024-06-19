@@ -72,10 +72,10 @@ const EditPost = () => {
 
     /*===========================================*/
 
-    const oldImagName =
-        post?.postImage === "default-post-img.jpg"
-            ? post?.postImage
-            : post?.postImage.split(".").slice(1, 3).join(".");
+    // const oldImagName =
+    //     post?.postImage === "default-post-img.jpg"
+    //         ? post?.postImage
+    //         : post?.postImage.split(".").slice(1, 3).join(".");
 
     /*===========================================*/
 
@@ -139,7 +139,7 @@ const EditPost = () => {
                             onChange={setimgfile}
                             accept="image/*"
                         />
-                        {file?.name ? <span>{file?.name}</span> : <span>{oldImagName}</span>}
+                        {/* {file?.name ? <span>{file?.name}</span> : <span>{oldImagName}</span>} */}
                     </div>
 
                     <div className="text-center">
