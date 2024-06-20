@@ -25,7 +25,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState("");
 
   const [file, setFile] = useState(null);
-
+  const [postImage, setPostImage] = useState([]);
   /*===========================================*/
 
   const setimgfile = (e) => {
@@ -33,18 +33,38 @@ const CreatePost = () => {
   }
 
   /*===========================================*/
+  //handle and convert it in base 64
+  const handleImage = (e) =>{
+    const file = e.target.files[0];
+    setFileToBase(file);
+    // console.log(file);
+}
+
+
+const setFileToBase = (file) =>{
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () =>{
+    setPostImage(reader.result);
+  }
+
+}
+  /*===========================================*/
 
   // create post handler
   const createPostHandler = async (e) => {
     e.preventDefault();
-    var formData = new FormData();
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("description", description);
-    // cos the image is optional , we should check if the there is image upload or not
-    file && formData.append("postImage", file);
+    // var formData = new FormData();
+    // formData.append("title", title);
+    // formData.append("category", category);
+    // formData.append("description", description);
+    // // cos the image is optional , we should check if the there is image upload or not
+    // file && formData.append("postImage", file);
+
+const lolo = {title,category,description,postImage}
+console.log(lolo)
     // create post
-    dispatch(createPost(formData));
+    dispatch(createPost(lolo));
   };
 
   /*===========================================*/
@@ -85,7 +105,7 @@ const CreatePost = () => {
                 <option disabled value="">
                   Select A Category
                 </option>
-                {categories.map((category) => (
+                {categories?.map((category) => (
                   <option key={category._id} value={category.title}>
                     {category.title}
                   </option>
@@ -113,12 +133,12 @@ const CreatePost = () => {
                 className="form-control my-input"
                 id="myFile"
                 name='file'
-                onChange={setimgfile}
+                onChange={handleImage}
                 accept="image/*"
               />
-              {file?.name && <span>{file?.name}</span>}
+              {/* {file?.name && <span>{file?.name}</span>} */}
             </div>
-
+            {/* <img className="img-fluid" src={postImage} alt="" /> */}
             <div className="text-center">
               <button type="submit" className="d-flex justify-content-center mx-auto">
                 {isPostCreated

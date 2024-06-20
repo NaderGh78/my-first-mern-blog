@@ -54,6 +54,25 @@ const getAllPostsCtrl = asynHandler(
     }
 );
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*===========================================*/
 
 /**
@@ -83,10 +102,28 @@ const newPostCtrl = asynHandler(
             return res.status(400).json({ message: "Post Title Already Exist." });
         }
 
-        const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+        // 4. Delete the old image
+        //  await cloudinary.uploader.destroy(post.postImage.publicId);
 
-        const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
 
+        // if (postImage !== ''){
+        //     const ImgId = post.postImage.publicId;
+        //     if (ImgId) {
+        //         await cloudinary.uploader.destroy(ImgId);
+        //     }
+        // }else{
+
+        // }  
+
+        // const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+
+        // const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+
+       
+
+        const result = await cloudinary.uploader.upload(postImage, { folder: "my-blog/posts" });
+
+         
         // 4. create new post
         post = await PostModal.create({
             title,
@@ -94,11 +131,19 @@ const newPostCtrl = asynHandler(
             description,
             user: req.userDecoded.id,
             // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
-            postImage: {
+            postImage: req.file && req.file.originalname && {
                 url: result.secure_url,
                 publicId: result.public_id,
             }
         });
+
+
+
+
+
+/*===========================================*/
+/*===========================================*/
+/*===========================================*/
 
         // 5. send response to client
         res.status(201).json({ message: "Post Created Successfully", post });
@@ -108,6 +153,32 @@ const newPostCtrl = asynHandler(
 
     }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*===========================================*/
 
@@ -151,6 +222,8 @@ const getPostCtrl = asynHandler(
 const updatePostCtrl = asynHandler(
 
     async (req, res) => {
+        const { title, category, description } = req.body;
+
 
         // 1. validation
         const { error } = updatePostValidation(req.body);
@@ -173,30 +246,34 @@ const updatePostCtrl = asynHandler(
                 .json({ message: "access denied, you are not allowed" });
         }
 
-        // 4. Delete the old image
-        await cloudinary.uploader.destroy(post.postImage.publicId);
+
 
         // 5. Upload new photo
         const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
 
-        const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+        // Upload image to cloudinary
+        let result;
+        if (req.file) {
+            result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+        }
+
+
+
+        const data = {
+            title: title || post.title,
+            category: category || post.category,
+            description: description || post.description,
+            postImage: {
+                url: result.secure_url,
+                publicId: result.public_id,
+            }
+        };
+
+        // console.log(result)
 
         // 5. update the post,and populate [user] without password
         const updatePost = await PostModal.findByIdAndUpdate(
-            req.params.id,
-            {
-                $set: {
-                    title: req.body.title,
-                    category: req.body.category,
-                    description: req.body.description,
-                    // postImage: req.file && req.file.originalname ? req.file.filename : undefined,
-                    postImage: {
-                        url: result.secure_url,
-                        publicId: result.public_id,
-                    }
-                }
-            },
-            { new: true }
+            req.params.id, data, { new: true }
         ).populate("user", ["-password"]);
 
         // 6. send response to client
@@ -222,8 +299,18 @@ const deletePostCtrl = asynHandler(
 
         // 2. if the post exists delete it with success msg, otherwise show post not found msg
         if (post) {
+
+            //retrieve current image ID
+            const imgId = post.postImage.publicId;
+
+            if (imgId) {
+                await cloudinary.uploader.destroy(imgId);
+            }
+
             await PostModal.findByIdAndDelete(req.params.id);
+
             res.status(200).json({ message: "Post Deleted Successfully." });
+
         } else {
             res.status(404).json({ message: "Post Not Found." });
         }

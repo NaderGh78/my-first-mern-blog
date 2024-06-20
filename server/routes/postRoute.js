@@ -19,7 +19,8 @@ const { validateObjectId } = require("../middlewares/validateObjectId");
 // /api/post
 router.route("/")
     .get(getAllPostsCtrl)
-    .post(verifyToken, upload.single("postImage"), newPostCtrl);
+    //.post(verifyToken, upload.single("postImage"), newPostCtrl);
+    .post(verifyToken, newPostCtrl);
 
 /*===========================================*/
 

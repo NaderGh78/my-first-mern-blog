@@ -123,7 +123,8 @@ const UserProfile = () => {
                             />
                         </div>
                         <h3 className="text-capitalize text-white">
-                            {profile?.isAdmin ? profile?.username + " [Admin]" : profile?.username}
+                            {/* here just the admin can see who is admin like [Jhone Doe Edit [Admin]] */}
+                            {user && user?.isAdmin && profile?.isAdmin ? profile?.username + " [Admin]" : profile?.username}
                         </h3>
                         {profile?.username && <p className="mb-0 h6 text-white text-capitalize">{profile?.bio}</p>}
                         <div className="text-white mt-2">

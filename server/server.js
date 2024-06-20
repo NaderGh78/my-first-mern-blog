@@ -1,5 +1,7 @@
 const express = require("express");
 
+const bodyParser = require('body-parser');
+
 const cors = require("cors");
 
 const connectDB = require('./config/db');
@@ -31,6 +33,12 @@ const { errorHandling, notFound } = require("./middlewares/errorHandling");
 /*===========================================*/
 
 connectDB();
+
+app.use(bodyParser.json({limit: '1000mb'}));
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    limit: '1000mb',
+    extended: true
+    }));
 
 app.use(cors());
 
