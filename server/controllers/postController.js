@@ -88,7 +88,7 @@ const newPostCtrl = asynHandler(
 
         const { title, category, description, postImage } = req.body;
 
-        //1. validation
+        // 1. validation
         // const { error } = newPostValidation(req.body);
         // if (error) {
         //     return res.status(400).json({ message: error.details[0].message });
@@ -118,29 +118,24 @@ const newPostCtrl = asynHandler(
         // const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
 
         // const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
-let uploadedResponse;
 
-        if (postImage) {
-            uploadedResponse = await cloudinary.uploader.upload(postImage, { upload_preset: "my-blog",resource_type: 'auto' });
-        }
-            
-      
        
 
-        //const result = await cloudinary.uploader.upload(postImage, { upload_preset: "my-blog/posts",resource_type: 'auto' });
+        const result = await cloudinary.uploader.upload(postImage, { folder: "my-blog/posts",resource_type: 'auto' });
 
-        if (uploadedResponse){
-// 4. create new post
-post = await PostModal.create({
-    title,
-    category,
-    description,
-    user: req.userDecoded.id,
-    // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
-    postImage:  uploadedResponse
-});
-        }
-        
+         
+        // 4. create new post
+        post = await PostModal.create({
+            title,
+            category,
+            description,
+            user: req.userDecoded.id,
+            // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
+            postImage: {
+                url: result.secure_url,
+                publicId: result.public_id,
+            }
+        });
 
 
 
