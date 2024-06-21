@@ -36,12 +36,13 @@ PostSchema = new Schema({
         // type: String,
         // required: false,
         // default: "default-post-img.jpg", 
-        type: Object,
-        default: {
-            url: "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg",
-            publicId: null,
-        },
-        required: false
+        // type: Object,
+        // default: {
+        //     url: "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg",
+        //     publicId: null,
+        // },
+        // required: false
+        type: Object, required: true
     },
     likes: [
         {
