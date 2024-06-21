@@ -89,10 +89,10 @@ const newPostCtrl = asynHandler(
         const { title, category, description, postImage } = req.body;
 
         // 1. validation
-        const { error } = newPostValidation(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
+        // const { error } = newPostValidation(req.body);
+        // if (error) {
+        //     return res.status(400).json({ message: error.details[0].message });
+        // }
 
         // 2. get post with same title
         let post = await PostModal.findOne({ title: req.body.title });
@@ -121,7 +121,7 @@ const newPostCtrl = asynHandler(
 
        
 
-        const result = await cloudinary.uploader.upload(postImage, { folder: "my-blog/posts" });
+        const result = await cloudinary.uploader.upload(postImage, { folder: "my-blog/posts",resource_type: 'auto' });
 
          
         // 4. create new post
@@ -131,7 +131,7 @@ const newPostCtrl = asynHandler(
             description,
             user: req.userDecoded.id,
             // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
-            postImage: req.file && req.file.originalname && {
+            postImage: {
                 url: result.secure_url,
                 publicId: result.public_id,
             }

@@ -24,31 +24,26 @@ const CreatePost = () => {
 
   const [description, setDescription] = useState("");
 
-  const [file, setFile] = useState(null);
-  const [postImage, setPostImage] = useState([]);
-  /*===========================================*/
-
-  const setimgfile = (e) => {
-    setFile(e.target.files[0])
-  }
+  const [postImage, setPostImage] = useState(null);
 
   /*===========================================*/
-  //handle and convert it in base 64
-  const handleImage = (e) =>{
+
+  const handlePosttImageUpload = (e) => {
     const file = e.target.files[0];
-    setFileToBase(file);
-    // console.log(file);
-}
+    TransformFileData(file);
+  };
 
-
-const setFileToBase = (file) =>{
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onloadend = () =>{
-    setPostImage(reader.result);
-  }
-
-}
+  const TransformFileData = (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPostImage(reader.result);
+      };
+    } else {
+      setPostImage("");
+    }
+  };
   /*===========================================*/
 
   // create post handler
@@ -61,10 +56,10 @@ const setFileToBase = (file) =>{
     // // cos the image is optional , we should check if the there is image upload or not
     // file && formData.append("postImage", file);
 
-const lolo = {title,category,description,postImage}
-console.log(lolo)
+    const dataPost = { title, category, description, postImage }
+    console.log(dataPost)
     // create post
-    dispatch(createPost(lolo));
+    dispatch(createPost(dataPost));
   };
 
   /*===========================================*/
@@ -105,7 +100,7 @@ console.log(lolo)
                 <option disabled value="">
                   Select A Category
                 </option>
-                {categories?.map((category) => (
+                {categories && categories?.map((category) => (
                   <option key={category._id} value={category.title}>
                     {category.title}
                   </option>
@@ -133,12 +128,12 @@ console.log(lolo)
                 className="form-control my-input"
                 id="myFile"
                 name='file'
-                onChange={handleImage}
+                onChange={handlePosttImageUpload}
                 accept="image/*"
               />
               {/* {file?.name && <span>{file?.name}</span>} */}
             </div>
-            {/* <img className="img-fluid" src={postImage} alt="" /> */}
+            {postImage && <img className="img-fluid" src={postImage} alt="post" />} 
             <div className="text-center">
               <button type="submit" className="d-flex justify-content-center mx-auto">
                 {isPostCreated
