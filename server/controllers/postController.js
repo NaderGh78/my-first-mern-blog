@@ -89,10 +89,10 @@ const newPostCtrl = asynHandler(
         const { title, category, description, postImage } = req.body;
 
         //1. validation
-        const { error } = newPostValidation(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
+        // const { error } = newPostValidation(req.body);
+        // if (error) {
+        //     return res.status(400).json({ message: error.details[0].message });
+        // }
 
         // 2. get post with same title
         let post = await PostModal.findOne({ title: req.body.title });
