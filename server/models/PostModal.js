@@ -76,7 +76,7 @@ function newPostValidation(obj) {
         title: joi.string().trim().min(5).max(100).required(),
         category: joi.string().trim().min(2).max(100).required(),
         description: joi.string().trim().min(5).required(),
-        // postImage: joi.object().optional().allow("",null)
+      postImage: joi.object().allow(null)
     });
 
     return shema.validate(obj);
