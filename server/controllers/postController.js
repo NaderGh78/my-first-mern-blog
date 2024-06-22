@@ -25,6 +25,7 @@ const getAllPostsCtrl = asynHandler(
         const POST_PER_PAGE = 6;
         // 2. distructing the query that need
         const { pageNumber, category } = req.query;
+
         let posts;
 
         /*
@@ -54,25 +55,6 @@ const getAllPostsCtrl = asynHandler(
     }
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*===========================================*/
 
 /**
@@ -86,7 +68,7 @@ const newPostCtrl = asynHandler(
 
     async (req, res) => {
 
-        const { title, category, description, postImage } = req.body;
+        const { title, category, description } = req.body;
 
         // 1. validation
         const { error } = newPostValidation(req.body);
@@ -101,116 +83,38 @@ const newPostCtrl = asynHandler(
         if (post) {
             return res.status(400).json({ message: "Post Title Already Exist." });
         }
+        //  await cloudinary.uploader.destroy(post.postImage.publicId); 
 
-        // 4. Delete the old image
-        //  await cloudinary.uploader.destroy(post.postImage.publicId);
+        // 4. Upload photo
+        let result;
 
+        // in case there is an image uploaded
+        if (req.file) {
+            const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+            result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+        }
 
-        // if (postImage !== ''){
-        //     const ImgId = post.postImage.publicId;
-        //     if (ImgId) {
-        //         await cloudinary.uploader.destroy(ImgId);
-        //     }
-        // }else{
-
-        // }  
-
-        // const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-
-        // const result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
-
-       
-
-
-
-
-
-
-
-
- 
-        let uploadedResponse = await cloudinary.uploader.upload(postImage, { 
-            upload_preset: "myBlog",
-           // resource_type: 'auto' 
-        });
-            
-      
-
-
-
-
-
-
-
-
-        // const result = await cloudinary.uploader.upload(postImage, { upload_preset: "my-blog/posts",resource_type: 'auto' });
-
-        // if(uploadedResponse){
-        //     post = await PostModal.create({
-        //         title,
-        //         category,
-        //         description,
-        //         user: req.userDecoded.id,
-        //         // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
-        //         postImage:uploadedResponse
-        //     });
-        // }
-         
-
-
-
-        // 4. create new post
+        // 5. create new post
         post = await PostModal.create({
-                title,
-                category,
-                description,
-                user: req.userDecoded.id,
-                // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
-                postImage:uploadedResponse
-            });
+            title,
+            category,
+            description,
+            user: req.userDecoded.id,
+            // in case the user dont add an image for the post, the post with showing with default url img
+            postImage:
+                req.file && req.file.originalname ?
+                    { url: result.secure_url, publicId: result.public_id } :
+                    undefined
+        });
 
-console.log(uploadedResponse)
-
-
-
-/*===========================================*/
-/*===========================================*/
-/*===========================================*/
-
-        // 5. send response to client
+        // 6. send response to client
         res.status(201).json({ message: "Post Created Successfully", post });
 
-        // 6. Remove image from the server
+        // 7. Remove image from the server
         fs.unlinkSync(imagePath);
 
     }
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+);   
 
 /*===========================================*/
 

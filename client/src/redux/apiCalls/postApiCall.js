@@ -130,11 +130,11 @@ export function createPost(newPost) {
                 {
                     headers: {
                         Authorization: "Bearer " + getState().auth.user.token,
-                        // "Content-Type": "multipart/form-data",
+                        "Content-Type": "multipart/form-data",
                     },
                 });
 
-                console.log(data)
+            console.log(data)
 
             dispatch(postActions.setPosts(data));
 

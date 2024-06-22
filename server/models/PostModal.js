@@ -33,15 +33,11 @@ PostSchema = new Schema({
         required: true
     },
     postImage: {
-        // type: String,
-        // required: false,
-        // default: "default-post-img.jpg", 
-        type: String,
-        // default: {
-        //     url: "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg",
-        //     publicId: null,
-        // },
-        required: true
+        type: Object,
+        default: {
+            url: "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg",
+            publicId: null,
+        }
     },
     likes: [
         {
@@ -74,8 +70,7 @@ function newPostValidation(obj) {
     const shema = joi.object({
         title: joi.string().trim().min(5).max(100).required(),
         category: joi.string().trim().min(2).max(100).required(),
-        description: joi.string().trim().min(5).required(),
-        postImage: joi.string().required()
+        description: joi.string().trim().min(5).required()
     });
 
     return shema.validate(obj);

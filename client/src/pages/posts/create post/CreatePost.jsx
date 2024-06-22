@@ -24,42 +24,21 @@ const CreatePost = () => {
 
   const [description, setDescription] = useState("");
 
-  const [postImage, setPostImage] = useState(null);
+  const [file, setFile] = useState(null);
 
-  /*===========================================*/
-
-  const handlePosttImageUpload = (e) => {
-    const file = e.target.files[0];
-    TransformFileData(file);
-  };
-
-  const TransformFileData = (file) => {
-    const reader = new FileReader();
-    if (file) {
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setPostImage(reader.result);
-      };
-    } else {
-      setPostImage("");
-    }
-  };
   /*===========================================*/
 
   // create post handler
   const createPostHandler = async (e) => {
     e.preventDefault();
-    // var formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("category", category);
-    // formData.append("description", description);
-    // // cos the image is optional , we should check if the there is image upload or not
-    // file && formData.append("postImage", file);
-
-    const dataPost = { title, category, description, postImage }
-    console.log(dataPost)
+    var formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("description", description);
+    // cos the image is optional , we should check if the there is image upload or not
+    file && formData.append("postImage", file);
     // create post
-    dispatch(createPost(dataPost));
+    dispatch(createPost(formData));
   };
 
   /*===========================================*/
@@ -128,12 +107,12 @@ const CreatePost = () => {
                 className="form-control my-input"
                 id="myFile"
                 name='file'
-                onChange={handlePosttImageUpload}
+                onChange={(e) => setFile(e.target.files[0])}
                 accept="image/*"
               />
               {/* {file?.name && <span>{file?.name}</span>} */}
             </div>
-            {postImage && <img className="img-fluid" src={postImage} alt="post" />} 
+            {/* {postImage && <img className="img-fluid" src={postImage} alt="post" />}  */}
             <div className="text-center">
               <button type="submit" className="d-flex justify-content-center mx-auto">
                 {isPostCreated
