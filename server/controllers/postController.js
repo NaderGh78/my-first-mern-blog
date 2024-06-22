@@ -128,13 +128,11 @@ const newPostCtrl = asynHandler(
 
 
 
-let uploadedResponse;
-        if (postImage) {
-            const uploadedResponse = await cloudinary.uploader.upload(postImage, { 
-                upload_preset: "myBlog/posts",
-                resource_type: 'auto' 
-            });
-        }
+ 
+        let uploadedResponse = await cloudinary.uploader.upload(postImage, { 
+            upload_preset: "myBlog",
+           // resource_type: 'auto' 
+        });
             
       
 
@@ -147,8 +145,22 @@ let uploadedResponse;
 
         // const result = await cloudinary.uploader.upload(postImage, { upload_preset: "my-blog/posts",resource_type: 'auto' });
 
-        if(uploadedResponse){
-            post = await PostModal.create({
+        // if(uploadedResponse){
+        //     post = await PostModal.create({
+        //         title,
+        //         category,
+        //         description,
+        //         user: req.userDecoded.id,
+        //         // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
+        //         postImage:uploadedResponse
+        //     });
+        // }
+         
+
+
+
+        // 4. create new post
+        post = await PostModal.create({
                 title,
                 category,
                 description,
@@ -156,12 +168,8 @@ let uploadedResponse;
                 // postImage: req.file && req.file.originalname ? req.file.filename : undefined, 
                 postImage:uploadedResponse
             });
-        }
-         
-        // 4. create new post
-        
 
-console.log(postImage)
+console.log(uploadedResponse)
 
 
 
