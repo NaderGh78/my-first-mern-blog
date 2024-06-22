@@ -131,7 +131,7 @@ const newPostCtrl = asynHandler(
 let uploadedResponse;
         if (postImage) {
             const uploadedResponse = await cloudinary.uploader.upload(postImage, { 
-                upload_preset: "my-blog/posts",
+                upload_preset: "myBlog/posts",
                 resource_type: 'auto' 
             });
         }
