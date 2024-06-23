@@ -65,17 +65,10 @@ const EditPost = () => {
         formData.append("title", title);
         formData.append("category", category);
         formData.append("description", description);
-        formData.append("postImage", file);
+        file && formData.append("postImage", file);
         // update post with all formdata data
         dispatch(updatePost(formData, post?._id));
     }
-
-    /*===========================================*/
-
-    // const oldImagName =
-    //     post?.postImage === "default-post-img.jpg"
-    //         ? post?.postImage
-    //         : post?.postImage.split(".").slice(1, 3).join(".");
 
     /*===========================================*/
 

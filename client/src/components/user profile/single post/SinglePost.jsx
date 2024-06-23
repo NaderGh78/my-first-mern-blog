@@ -14,7 +14,7 @@ const SinglePost = ({ post, userInLocalStorage, profileUsername, profileId, onPo
 
     // if there is a logged user go to it profile,otherwise go to the user that create the post
     const profileLink = profileId ? `/profile/${profileId}` : `/profile/${post?.user?._id}`;
-
+// crossOrigin='anonymous'
     return (
         <div className="single-post">
             <div className="top">

@@ -83,14 +83,14 @@ const newPostCtrl = asynHandler(
         if (post) {
             return res.status(400).json({ message: "Post Title Already Exist." });
         }
-        //  await cloudinary.uploader.destroy(post.postImage.publicId); 
 
         // 4. Upload photo
         let result;
+        let imagePath;
 
         // in case there is an image uploaded
         if (req.file) {
-            const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+            imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
             result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
         }
 
@@ -114,7 +114,7 @@ const newPostCtrl = asynHandler(
         fs.unlinkSync(imagePath);
 
     }
-);   
+);
 
 /*===========================================*/
 
@@ -158,8 +158,8 @@ const getPostCtrl = asynHandler(
 const updatePostCtrl = asynHandler(
 
     async (req, res) => {
-        const { title, category, description } = req.body;
 
+        const { title, category, description } = req.body;
 
         // 1. validation
         const { error } = updatePostValidation(req.body);
@@ -180,42 +180,51 @@ const updatePostCtrl = asynHandler(
             return res
                 .status(403)
                 .json({ message: "access denied, you are not allowed" });
-        }
+        } 
 
+        /*
+        5.
+        when user create post WITOUT IMAGE ,by default showing a default image, as we put in [post model],
+        BUT the default post image it [publicId] is null, to remove image from cloudinary need [publicId]
+        when the user need to update the image from the [default image showing] to another chosen post image,
+        the cloudinary will not see any [publicId] for post image,therfore we check if the post image has [publicId]
+        in order to change the image 
+        */
 
+        if (post.postImage.publicId) {
+            await cloudinary.uploader.destroy(post.postImage.publicId);
+        } 
 
-        // 5. Upload new photo
-        const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-
-        // Upload image to cloudinary
+        // 6. after remove the old image , upload new image to cloudinary  
         let result;
+        let imagePath;
+
         if (req.file) {
+
+            imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
             result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
         }
-
-
 
         const data = {
             title: title || post.title,
             category: category || post.category,
             description: description || post.description,
-            postImage: {
-                url: result.secure_url,
-                publicId: result.public_id,
-            }
+            // in case the user dont want to update the post image
+            postImage:
+                req.file && req.file.originalname ?
+                    { url: result.secure_url, publicId: result.public_id } :
+                    undefined
         };
 
-        // console.log(result)
-
-        // 5. update the post,and populate [user] without password
+        // 7. update the post,and populate [user] without password
         const updatePost = await PostModal.findByIdAndUpdate(
             req.params.id, data, { new: true }
         ).populate("user", ["-password"]);
 
-        // 6. send response to client
+        // 8. send response to client
         res.status(200).json(updatePost);
 
-        // 7. Remvoe image from the server
+        // 9. Remvoe image from the server
         fs.unlinkSync(imagePath);
 
     });
