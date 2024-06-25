@@ -81,8 +81,7 @@ function registerValidation(obj) {
         password: joi.string().trim().min(8).required(),
         bio: joi.string().optional(),
         isAdmin: joi.boolean(),
-        userImage: joi.object().allow("")
-
+        // userImage: joi.object().allow("")
     });
 
     return schema.validate(obj);

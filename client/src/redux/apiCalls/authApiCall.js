@@ -25,6 +25,8 @@ export function registerUser(user) {
                 }
             );
 
+            console.log(data)
+
             // register new user depend on data
             dispatch(authActions.register(data));
 

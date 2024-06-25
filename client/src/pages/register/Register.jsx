@@ -121,7 +121,7 @@ const Register = () => {
                         className="form-control my-input"
                         id="myFile"
                         name='file'
-                        onChange={setimgfile}
+                        onChange={(e) => setFile(e.target.files[0])}
                         accept="image/*"
                       />
                       {file?.name && <span>{file?.name}</span>}

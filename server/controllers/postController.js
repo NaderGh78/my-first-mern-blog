@@ -84,7 +84,7 @@ const newPostCtrl = asynHandler(
             return res.status(400).json({ message: "Post Title Already Exist." });
         }
 
-        // 4. Upload photo
+        // 4. Upload photo 
         let result;
         let imagePath;
 
