@@ -10,6 +10,7 @@ const profileSlice = createSlice({
         profile: null,
         profiles: [],
         isProfileDeleted: false,
+        isProfileUpdated: false,
         show: false,//this for update user modal 
         usersCount: null,
         loading: false
@@ -47,6 +48,15 @@ const profileSlice = createSlice({
 
         clearIsProfileDeleted(state) {
             state.isProfileDeleted = false;
+        },
+
+        // when user update his data
+        setIsProfileUpdated(state) {
+            state.isProfileUpdated = true;
+        },
+
+        clearIsProfileUpdated(state) {
+            state.isProfileUpdated = false;
         },
 
         setUserCount(state, action) {

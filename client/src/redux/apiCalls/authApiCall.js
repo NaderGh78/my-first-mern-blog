@@ -40,7 +40,7 @@ export function registerUser(user) {
         } catch (error) {
 
             // show failed toast in case the register is FAILED
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message);
 
             dispatch(authActions.clearLoading());
 

@@ -24,7 +24,7 @@ const UserProfile = () => {
 
     const { user } = useSelector((state) => state.auth);
 
-    const { profile, show, loading, isProfileDeleted } = useSelector((state) => state.profile);
+    const { profile, show, loading, isProfileDeleted, isProfileUpdated } = useSelector((state) => state.profile);
 
     const { posts, isPostDelete } = useSelector((state) => state.post);
 
@@ -185,6 +185,7 @@ const UserProfile = () => {
                     setShowModal={setShowModal}
                     setHideModal={setHideModal}
                     profile={profile}
+                    isProfileUpdated={isProfileUpdated}
                 />
             }
         </>

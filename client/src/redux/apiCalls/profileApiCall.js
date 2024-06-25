@@ -66,6 +66,8 @@ export function updateProfile(userId, profile) {
 
     try {
 
+      dispatch(profileActions.setIsProfileUpdated());
+
       // update user profile , need [token for logged user or admin + update content + provided id]
       const { data } = await request.put(`/api/users/profile/${userId}`, profile,
         {
@@ -81,6 +83,8 @@ export function updateProfile(userId, profile) {
       dispatch(authActions.setUserPhoto(data.userImage));
 
       dispatch(authActions.setUsername(data.username));
+
+      dispatch(profileActions.clearIsProfileUpdated());
 
       toast.success("Your Profile Has Been Updated Successfully", {
         position: toast.POSITION.TOP_RIGHT

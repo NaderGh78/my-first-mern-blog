@@ -34,13 +34,15 @@ const register = asynHandler(
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
 
+        // 4. Upload photo
+        let imgResult;
+        let AvatarImagePath;
 
-
-        const AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-const imgResult = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
-
-
-
+        // in case there is an image uploaded
+        if (req.file) {
+            AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+            imgResult = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
+        }
 
         user = new UserModel({
             email: req.body.email,
@@ -48,25 +50,24 @@ const imgResult = await cloudinary.uploader.upload(AvatarImagePath, { folder: "m
             password: req.body.password,
             isAdmin: req.body.isAdmin,
             bio: req.body.bio,
-            // userImage: req.file && req.file.originalname ? req.file.filename : undefined,
-            // userImage: req.file.filename,
-            userImage: {
-                url: imgResult.secure_url,
-                publicId: imgResult.public_id,
-            }
+            userImage:
+                req.file && req.file.originalname ?
+                    { url: imgResult.secure_url, publicId: imgResult.public_id } :
+                    undefined
         });
-        console.log(user)
-        // 4 - new user and save it to db 
+
+        // 5. new user and save it to db 
         const result = await user.save();
 
         const token = user.generateToken();
+
         const { password, ...others } = result._doc;
 
-        // 5 - send response to client
+        // 6. send response to client
         res.status(201).json({ message: "Successful Registration ,please Log In", ...others, token });
 
-        // 5. Remvoe image from the server
-fs.unlinkSync(AvatarImagePath);
+        // 7. Remvoe image from the server
+        fs.unlinkSync(AvatarImagePath);
 
     }
 );

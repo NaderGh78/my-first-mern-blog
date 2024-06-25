@@ -180,7 +180,7 @@ const updatePostCtrl = asynHandler(
             return res
                 .status(403)
                 .json({ message: "access denied, you are not allowed" });
-        } 
+        }
 
         /*
         5.
@@ -193,7 +193,7 @@ const updatePostCtrl = asynHandler(
 
         if (post.postImage.publicId) {
             await cloudinary.uploader.destroy(post.postImage.publicId);
-        } 
+        }
 
         // 6. after remove the old image , upload new image to cloudinary  
         let result;
