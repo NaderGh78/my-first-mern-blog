@@ -84,18 +84,18 @@ const updateUserCtrl = asynHandler(
         let user = await UserModel.findById(req.params.id);
 
         // 3. Delete the old image
-        if (user.userImage.publicId) {
-            await cloudinary.uploader.destroy(user.userImage.publicId);
+        if (user?.userImage?.publicId) {
+            await cloudinary.uploader?.destroy(user.userImage.publicId);
         }
 
         // 4. Upload photo
-        let result;
+        let imgResult;
         let AvatarImagePath;
 
-        // in case there is an image uploaded
+        // in case there is an image uploaded 
         if (req.file) {
             AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-            result = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
+            imgResult = await cloudinary.cloudinaryUploadImage(AvatarImagePath, "my-blog/avatar");
         }
 
         const data = {
@@ -106,7 +106,7 @@ const updateUserCtrl = asynHandler(
             // in case the user dont want to update the his image
             userImage:
                 req.file && req.file.originalname ?
-                    { url: result.secure_url, publicId: result.public_id } :
+                    { url: imgResult?.secure_url, publicId: imgResult?.public_id } :
                     undefined
         };
 
@@ -138,7 +138,7 @@ const deleteUserCtrl = asynHandler(
         // 1. get single user by id from db
         const user = await UserModel.findById(req.params.id);
 
-        // 2. if user exists , delte and remove it profile img and show success msg, otherwise show user not found error msg
+        // 2. if user exists , delte it and show success msg, otherwise show user not found error msg
         if (user) {
 
             //retrieve current image ID
@@ -194,27 +194,14 @@ const deleteUserProfileCtrl = asynHandler(
         // 2. get all posts from db
         const posts = await PostModal.find({ user: user._id });
 
-        // 3. Get the public ids from the posts
-        const publicIds = posts?.map((post) => post.postImage.publicId);
-
-        // 4. Delete all posts image from cloudinary that belong to this user
-        if (publicIds?.length > 0) {
-            await cloudinary.cloudinaryRemoveMultipleImage(publicIds);
-        }
-
-        // 5. Delete the profile picture from cloudinary
-        if (user.userImage.publicId !== null) {
-            await cloudinaryRemoveImage(user.userImage.publicId);
-        }
-
-        // 6. delte user posts and comments in case the user already delete his account
+        // 3. delte user posts and comments in case the user already delete his account
         await PostModal.deleteMany({ user: user._id });
         await CommentModel.deleteMany({ user: user._id });
 
-        // 7. delte the user himself
+        // 4. delte the user himself
         await UserModel.findByIdAndDelete(req.params.id);
 
-        // 8. send a response to the client
+        // 5. send a response to the client
         res.status(200).json({ message: "your profile has been deleted" });
     }
 );

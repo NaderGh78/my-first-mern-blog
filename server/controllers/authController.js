@@ -38,10 +38,10 @@ const register = asynHandler(
         let imgResult;
         let AvatarImagePath;
 
-        // in case there is an image uploaded
+        // in case there is an image uploaded 
         if (req.file) {
             AvatarImagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-            imgResult = await cloudinary.uploader.upload(AvatarImagePath, { folder: "my-blog/avatar" });
+            imgResult = await cloudinary.cloudinaryUploadImage(AvatarImagePath, "my-blog/avatar");
         }
 
         user = new UserModel({

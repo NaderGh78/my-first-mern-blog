@@ -15,14 +15,13 @@ cloudinary.config({
 });
 
 // Cloudinary Upload Image
-const cloudinaryUploadImage = async (fileToUpload) => {
+const cloudinaryUploadImage = async (fileToUpload, folder) => {
 
     try {
 
         const data = await cloudinary.uploader.upload(fileToUpload, {
-
-            resource_type: "auto",
-
+            folder,
+            resource_type: "auto"
         });
 
         return data;
@@ -67,5 +66,7 @@ const cloudinaryRemoveMultipleImage = async (publicIds) => {
 
 module.exports = {
     cloudinary,
+    cloudinaryUploadImage,
+    cloudinaryRemoveImage,
     cloudinaryRemoveMultipleImage
 };
