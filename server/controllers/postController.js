@@ -88,10 +88,10 @@ const newPostCtrl = asynHandler(
         let result;
         let imagePath;
 
-        // in case there is an image uploaded
+        // in case there is an image uploaded 
         if (req.file) {
             imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-            result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+            result = await cloudinary.cloudinaryUploadImage(imagePath, "my-blog/posts");
         }
 
         // 5. create new post
@@ -191,19 +191,32 @@ const updatePostCtrl = asynHandler(
         in order to change the image 
         */
 
-        if (post.postImage.publicId) {
-            await cloudinary.uploader.destroy(post.postImage.publicId);
+        // if (post?.postImage?.publicId) {
+        //     await cloudinary.uploader.destroy(post.postImage.publicId);
+        // }
+
+
+        if (post?.postImage?.publicId) {
+            await cloudinary.cloudinaryRemoveImage(post.postImage.publicId);
         }
 
         // 6. after remove the old image , upload new image to cloudinary  
         let result;
         let imagePath;
 
-        if (req.file) {
+        // if (req.file) {
 
+        //     imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+        //     result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+        // }
+
+
+        if (req.file) {
             imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-            result = await cloudinary.uploader.upload(imagePath, { folder: "my-blog/posts" });
+            result = await cloudinary.cloudinaryUploadImage(imagePath, "my-blog/posts");
         }
+
+
 
         const data = {
             title: title || post.title,
@@ -249,7 +262,8 @@ const deletePostCtrl = asynHandler(
             const imgId = post.postImage.publicId;
 
             if (imgId) {
-                await cloudinary.uploader.destroy(imgId);
+                // await cloudinary.uploader.destroy(imgId);
+                await cloudinary.cloudinaryRemoveImage(imgId);
             }
 
             await PostModal.findByIdAndDelete(req.params.id);
